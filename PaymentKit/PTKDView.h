@@ -7,25 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PTKCard.h"
+#import "PTKDCard.h"
 #import "PTKCardNumber.h"
 #import "PTKCardExpiry.h"
 #import "PTKCardCVC.h"
 #import "PTKAddressZip.h"
 #import "PTKUSAddressZip.h"
 
-@class PTKView, PTKTextField;
+@class PTKDView, PTKTextField;
 
 __attribute__((deprecated("We've moved development of PaymentKit into github.com/stripe/stripe-ios. You should migrate to use that instead. For help, see https://github.com/stripe/paymentkit#migration .")))
-@protocol PTKViewDelegate <NSObject>
+@protocol PTKDViewDelegate <NSObject>
 
 @optional
-- (void)paymentView:(PTKView *)paymentView withCard:(PTKCard *)card isValid:(BOOL)valid;
+- (void)paymentView:(PTKDView *)paymentView withCard:(PTKDCard *)card isValid:(BOOL)valid;
 
 @end
 
 __attribute__((deprecated("We've moved development of PaymentKit into github.com/stripe/stripe-ios. You should migrate to use that instead. For help, see https://github.com/stripe/paymentkit#migration .")))
-@interface PTKView : UIView
+@interface PTKDView : UIView
 
 - (BOOL)isValid;
 
@@ -41,7 +41,7 @@ __attribute__((deprecated("We've moved development of PaymentKit into github.com
 @property IBOutlet PTKTextField *cardExpiryField;
 @property IBOutlet PTKTextField *cardCVCField;
 @property IBOutlet UIImageView *placeholderView;
-@property (nonatomic, weak) id <PTKViewDelegate> delegate;
-@property (readonly) PTKCard *card;
+@property (nonatomic, weak) id <PTKDViewDelegate> delegate;
+@property (readonly) PTKDCard *card;
 
 @end
