@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Stripe. All rights reserved.
 //
 
-#import "PTKView.h"
+#import "PTKDView.h"
 #import "PTKTextField.h"
 
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f]
@@ -14,20 +14,20 @@
 #define RedColor RGB(253,0,17)
 #define DefaultBoldFont [UIFont boldSystemFontOfSize:17]
 
-#define kPTKViewPlaceholderViewAnimationDuration 0.25
+#define kPTKDViewPlaceholderViewAnimationDuration 0.25
 
-#define kPTKViewCardExpiryFieldStartX 84 + 200
-#define kPTKViewCardCVCFieldStartX 177 + 200
+#define kPTKDViewCardExpiryFieldStartX 84 + 200
+#define kPTKDViewCardCVCFieldStartX 177 + 200
 
-#define kPTKViewCardExpiryFieldEndX 84
-#define kPTKViewCardCVCFieldEndX 177
+#define kPTKDViewCardExpiryFieldEndX 84
+#define kPTKDViewCardCVCFieldEndX 177
 
-#define kPTKBundle [NSBundle bundleForClass:[PTKView class]]
+#define kPTKBundle [NSBundle bundleForClass:[PTKDView class]]
 
 static NSString *const kPTKLocalizedStringsTableName = @"PaymentKit";
 static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable";
 
-@interface PTKView () <PTKTextFieldDelegate> {
+@interface PTKDView () <PTKTextFieldDelegate> {
 @private
     BOOL _isInitialState;
     BOOL _isValidState;
@@ -59,7 +59,7 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
 
 #pragma mark -
 
-@implementation PTKView
+@implementation PTKDView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -142,7 +142,7 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
 
 - (void)setupCardExpiryField
 {
-    self.cardExpiryField = [[PTKTextField alloc] initWithFrame:CGRectMake(kPTKViewCardExpiryFieldStartX, 0, 60, 20)];
+    self.cardExpiryField = [[PTKTextField alloc] initWithFrame:CGRectMake(kPTKDViewCardExpiryFieldStartX, 0, 60, 20)];
     self.cardExpiryField.delegate = self;
     self.cardExpiryField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_expiry" defaultValue:@"MM/YY"];
     self.cardExpiryField.keyboardType = UIKeyboardTypeNumberPad;
@@ -154,7 +154,7 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
 
 - (void)setupCardCVCField
 {
-    self.cardCVCField = [[PTKTextField alloc] initWithFrame:CGRectMake(kPTKViewCardCVCFieldStartX, 0, 55, 20)];
+    self.cardCVCField = [[PTKTextField alloc] initWithFrame:CGRectMake(kPTKDViewCardCVCFieldStartX, 0, 55, 20)];
     self.cardCVCField.delegate = self;
     self.cardCVCField.placeholder = [self.class localizedStringWithKey:@"placeholder.card_cvc" defaultValue:@"CVC"];
     self.cardCVCField.keyboardType = UIKeyboardTypeNumberPad;
@@ -215,11 +215,11 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
                               delay:0
                             options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction)
                          animations:^{
-                             self.cardExpiryField.frame = CGRectMake(kPTKViewCardExpiryFieldStartX,
+                             self.cardExpiryField.frame = CGRectMake(kPTKDViewCardExpiryFieldStartX,
                                      self.cardExpiryField.frame.origin.y,
                                      self.cardExpiryField.frame.size.width,
                                      self.cardExpiryField.frame.size.height);
-                             self.cardCVCField.frame = CGRectMake(kPTKViewCardCVCFieldStartX,
+                             self.cardCVCField.frame = CGRectMake(kPTKDViewCardCVCFieldStartX,
                                      self.cardCVCField.frame.origin.y,
                                      self.cardCVCField.frame.size.width,
                                      self.cardCVCField.frame.size.height);
@@ -268,11 +268,11 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
                      } completion:^(BOOL finished) {
     }];
     [UIView animateWithDuration:0.400 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.cardExpiryField.frame = CGRectMake(kPTKViewCardExpiryFieldEndX,
+        self.cardExpiryField.frame = CGRectMake(kPTKDViewCardExpiryFieldEndX,
                 self.cardExpiryField.frame.origin.y,
                 self.cardExpiryField.frame.size.width,
                 self.cardExpiryField.frame.size.height);
-        self.cardCVCField.frame = CGRectMake(kPTKViewCardCVCFieldEndX,
+        self.cardCVCField.frame = CGRectMake(kPTKDViewCardCVCFieldEndX,
                 self.cardCVCField.frame.origin.y,
                 self.cardCVCField.frame.size.width,
                 self.cardCVCField.frame.size.height);
@@ -299,9 +299,9 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
             [self.cardCVC isValidWithType:self.cardNumber.cardType];
 }
 
-- (PTKCard *)card
+- (PTKDCard *)card
 {
-    PTKCard *card = [[PTKCard alloc] init];
+    PTKDCard *card = [[PTKDCard alloc] init];
     card.number = [self.cardNumber string];
     card.cvc = [self.cardCVC string];
     card.expMonth = [self.cardExpiry month];
@@ -314,7 +314,7 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
 {
     if (![self.placeholderView.image isEqual:image]) {
         __block __unsafe_unretained UIView *previousPlaceholderView = self.placeholderView;
-        [UIView animateWithDuration:kPTKViewPlaceholderViewAnimationDuration delay:0
+        [UIView animateWithDuration:kPTKDViewPlaceholderViewAnimationDuration delay:0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
                              self.placeholderView.layer.opacity = 0.0;
@@ -329,7 +329,7 @@ static NSString *const kPTKOldLocalizedStringsTableName = @"STPaymentLocalizable
         self.placeholderView.layer.opacity = 0.0;
         self.placeholderView.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8);
         [self insertSubview:self.placeholderView belowSubview:previousPlaceholderView];
-        [UIView animateWithDuration:kPTKViewPlaceholderViewAnimationDuration delay:0
+        [UIView animateWithDuration:kPTKDViewPlaceholderViewAnimationDuration delay:0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
                              self.placeholderView.layer.opacity = 1.0;

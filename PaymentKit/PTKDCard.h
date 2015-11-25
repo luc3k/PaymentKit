@@ -1,5 +1,5 @@
 //
-//  PTKCard.h
+//  PTKDCard.h
 //  PTKPayment Example
 //
 //  Created by Alex MacCaw on 1/31/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PTKCard : NSObject
+@interface PTKDCard : NSObject
 
 @property (nonatomic, copy) NSString *number;
 @property (nonatomic, copy) NSString *cvc;
